@@ -86,9 +86,9 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json(newPost, { status: 201 });
-  } catch (error) {
+  } catch (error: unknown) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: error.errors[0].message }, { status: 400 });
+      return NextResponse.json({ error: error.errors[0]?.message || "Validation error" }, { status: 400 });
     }
     console.error("Error creating post:", error);
     return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
