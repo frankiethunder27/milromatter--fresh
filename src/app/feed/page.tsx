@@ -1,6 +1,8 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 import { SignOutButton } from "@/components/sign-out-button";
 import { PostComposer } from "@/components/post-composer";
 import { Feed } from "@/components/feed";
