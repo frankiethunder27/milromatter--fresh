@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { posts, likes, comments, users, hashtags, postHashtags } from "@/lib/db/schema";
 import { desc, eq, sql, and } from "drizzle-orm";
@@ -11,7 +12,7 @@ const createPostSchema = z.object({
 
 // GET /api/posts - Get all posts
 export async function GET(req: NextRequest) {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
   
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -42,7 +43,7 @@ export async function GET(req: NextRequest) {
 
 // POST /api/posts - Create a post
 export async function POST(req: NextRequest) {
-  const session = await auth();
+  const session = await getServerSession(authOptions);
   
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
