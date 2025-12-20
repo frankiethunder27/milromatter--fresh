@@ -6,15 +6,15 @@ import { db } from "./db";
 import { accounts, sessions, users } from "./db/schema";
 
 export const authOptions: NextAuthOptions = {
-  adapter: DrizzleAdapter(db, {
+  adapter: db ? DrizzleAdapter(db, {
     usersTable: users,
     accountsTable: accounts,
     sessionsTable: sessions,
-  }) as NextAuthOptions["adapter"],
+  }) as NextAuthOptions["adapter"] : undefined,
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+      clientId: process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
     }),
   ],
   pages: {
