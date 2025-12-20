@@ -1,4 +1,2 @@
-// Database temporarily disabled for deployment
-// Will be re-enabled once auth is working
-
+// Database temporarily disabled
 export const db = null as any;
